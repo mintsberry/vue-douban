@@ -10,6 +10,7 @@
     </router-link>
     <router-link tag="div" to="/group" class="tab-item" active-class="active">
       <img src="../common/images/group@2x.png" alt="" width="48" height="48" class="group-item">
+      <!-- <img src="../common/images/group-active@2x.png" alt="" width="48" height="48" class="group-item"> -->
     </router-link>
     <router-link tag="div" to="/store" class="tab-item" active-class="active">
       <span class="item store-item"></span>
@@ -34,7 +35,6 @@
   display: flex;
   background-color: white;
   box-shadow: 0 1px 1px 1px #999;
-
   .tab-item {
     flex: 1;
     text-align: center;
@@ -59,6 +59,7 @@
     }
     .group-item {
       transition: all .3s ease;
+      // background-color: white;
     }
     &.active {
       color: $color-theme;
@@ -75,7 +76,7 @@
         background-image: url('../common/images/me-active@2x.png');
       }
       .group-item {
-        transform: translateY(-4px);
+        transform: translateY(-2px);
       }
     }
     .subtitle {
