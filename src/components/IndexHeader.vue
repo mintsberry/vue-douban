@@ -14,7 +14,10 @@ export default {
   },
   data () {
     return {
-      tabs: ['推荐', '动态']
+      tabs: [
+        { text: '推荐', url: 'recommend' },
+        { text: '动态', url: 'news' }
+      ]
     }
   }
 }

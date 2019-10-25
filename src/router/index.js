@@ -20,13 +20,26 @@ const routes = [
   {
     path: '/index',
     name: 'index',
-    component: () => import('../views/Index.vue')
+    component: () => import('../views/Index.vue'),
+    children: [
+      {
+        path: '/index/recommend',
+        name: 'recommend',
+        component: () => import('../views/Recommend.vue')
+      },
+      {
+        path: '/index/news',
+        name: 'news'
+        // component: () => import('../views/Recommend.vue')
+      }
+    ]
   }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
+  linkActiveClass: 'active',
   routes
 })
 

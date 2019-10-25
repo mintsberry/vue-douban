@@ -1,9 +1,9 @@
 <template>
   <div class="tab-bar">
     <div class="tabs">
-      <div v-for="(item, index) in tabs" :key="index" class="tab" @click="currentIndex = index">
-        <span :class="{ 'active' : index === currentIndex}" >{{item}}</span>
-      </div>
+      <router-link :to="{name: item.url}" tag="div" v-for="(item, index) in tabs" :key="index" class="tab" append>
+        <span>{{item.text}}</span>
+      </router-link>
     </div>
   </div>
 </template>
@@ -41,7 +41,9 @@ export default {
         padding-bottom: 4px;
         color: white;
         transition: all .2s ease;
-        &.active {
+      }
+      &.active {
+        span {
           font-size: $font-size-medium-x;
           border-bottom: 2px solid white;
         }

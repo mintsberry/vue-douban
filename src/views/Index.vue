@@ -1,20 +1,16 @@
 <template>
   <div class="index">
     <IndexHeader/>
+    <keep-alive>
+      <router-view class="content"></router-view>
+    </keep-alive>
   </div>
 </template>
 <script>
 import IndexHeader from '../components/IndexHeader.vue'
-import { getRrecommend } from '../common/api/index'
 export default {
   components: {
     IndexHeader
-  },
-  created () {
-    getRrecommend({ start: 0, count: 20 })
-      .then((resp) => {
-        console.log(resp)
-      })
   }
 }
 </script>
@@ -25,5 +21,12 @@ export default {
   left: 0;
   right: 0;
   bottom: 56px;
+  .content {
+    position: absolute;
+    top: 56px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 }
 </style>
