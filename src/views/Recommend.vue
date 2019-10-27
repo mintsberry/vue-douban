@@ -3,12 +3,14 @@
     <div class=article-list>
       <ul>
         <li v-for="item in recommends" :key="item.id" class="article">
+          <div class="topic" v-if="item.topic"><i class="icon-chat"></i> {{item.topic.name}}</div>
           <div class="text">
-            <h3 class="title">{{item.title}}</h3><span class="abstract" v-html="item.abstract"></span>
+            <h3 class="title" v-if="item.title">{{item.title}}</h3><span class="abstract" v-html="item.abstract"></span>
           </div>
+          <VideoPlayer class="video" v-if="item.video" :videoUrl="item.video.video_url" :posterUrl="item.video.cover_url" />
           <div class="img-group" v-if="item.photos.length">
             <div v-for="(photo, index) in item.photos" :key="index" class="img-box" >
-              <img :src="photo.image.large.url" alt=""  :key="index">
+              <img :src="photo.large.url" alt=""  :key="index">
             </div>
           </div>
           <div class="article-info">
@@ -27,9 +29,11 @@
 import { getRrecommend } from '../common/api/index'
 import BScroll from 'better-scroll'
 import Loading from '../components/loading/Loading.vue'
+import VideoPlayer from '../components/VideoPlayer.vue'
 export default {
   components: {
-    Loading
+    Loading,
+    VideoPlayer
   },
   data () {
     return {
@@ -61,7 +65,7 @@ export default {
       if (this.isGeting) {
         return
       }
-      let start = this.recommends.length
+      let start = 0
       let count = 10
       this.isGeting = true
       getRrecommend({ start, count })
@@ -72,7 +76,7 @@ export default {
     },
     _initScroll () {
       this.scroll = new BScroll(this.$refs.recommend, {
-        click: this.click
+        click: true
       })
       this.scroll.on('scrollEnd', () => {
         if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
@@ -83,18 +87,50 @@ export default {
     _normalize (list) {
       let ret = []
       list.forEach(el => {
-        if (el.id) {
-          ret.push({
-            id: el.id,
-            title: el.content.title,
-            abstract: el.content.abstract,
-            photos: el.content.photos,
-            comments_count: el.comments_count,
-            author: el.content.author
-          })
+        if (el.id !== '' && el.show_actions) {
+          if (el.type === 'topic') {
+            let imgs = this._normalizeNoteImage(el.content.photos)
+            ret.push({
+              id: el.id,
+              type: el.type,
+              title: el.content.title,
+              abstract: el.content.abstract,
+              photos: imgs,
+              comments_count: el.comments_count,
+              author: el.owner
+            })
+          } else if (el.type === 'status') {
+            let status = el.content.status
+            ret.push({
+              id: el.id,
+              type: el.type,
+              topic: el.topic,
+              abstract: status.text,
+              photos: status.images,
+              video: status.video_info,
+              comments_count: status.comments_count,
+              author: el.owner
+            })
+          } else if (el.type === 'note') {
+            let imgs = this._normalizeNoteImage(el.content.photos)
+            ret.push({
+              id: el.id,
+              type: el.type,
+              title: el.content.title,
+              abstract: el.content.abstract,
+              photos: imgs,
+              comments_count: el.comments_count,
+              author: el.owner
+            })
+          }
         }
       })
       return ret
+    },
+    _normalizeNoteImage (imgs) {
+      return imgs.map((img) => {
+        return img.image
+      })
     }
   }
 }
@@ -126,7 +162,7 @@ export default {
           height: 0;
           margin: 2px;
           padding-bottom: 33%;
-          border-radius: 8px;
+          border-radius:4px;
           img {
             position: absolute;
             top: 0;
@@ -137,17 +173,41 @@ export default {
           }
         }
       }
+      .topic {
+        font-size: 12px;
+        background-color: #F7F7F7;
+        display: inline-block;
+        color: #39A94C;
+        padding: 6px;
+        border-radius: 32px;
+        margin-bottom: 8px;
+      }
+      .video {
+        margin-bottom: 8px;
+      }
       .text {
         margin-bottom: 8px;
         font-size: $font-size-medium;
+        line-height: 18px;
+        max-height: 72px;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
         .title {
           display: inline-block;
+          height: 16px;
+          max-width: 70%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
           font-size: $font-size-medium;
           font-weight: 700;
           margin-right: 8px;
         }
         .abstract {
-          line-height: 16px;
+          vertical-align: top;
           color: $color-text;
         }
       }
