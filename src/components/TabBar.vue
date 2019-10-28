@@ -1,8 +1,16 @@
 <template>
   <div class="tab-bar">
     <div class="tabs">
-      <router-link :to="{name: item.url}" tag="div" v-for="(item, index) in tabs" :key="index" class="tab" append>
-        <span>{{item.text}}</span>
+      <router-link
+        :to="{name: item.url}"
+        tag="div"
+        v-for="(item, index) in tabs"
+        :key="index"
+        class="tab"
+        append
+      >
+        <span class="text" :style="{color: fontColor}">{{item.text}}</span>
+        <span class="under" :style="{ background: underColor, boxShadow: `0px 1px 4px 0px ${underColor}` }"></span>
       </router-link>
     </div>
   </div>
@@ -13,6 +21,14 @@ export default {
     tabs: {
       type: Array,
       default: null
+    },
+    fontColor: {
+      type: String,
+      default: 'white'
+    },
+    underColor: {
+      type: String,
+      default: 'white'
     }
   },
   data () {
@@ -23,7 +39,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '../common/scss/variable.scss';
+@import "../common/scss/variable.scss";
 .tab-bar {
   display: inline-block;
   width: 100%;
@@ -34,18 +50,27 @@ export default {
     height: 100%;
     align-items: center;
     .tab {
-      padding: 10px;
-      padding-left: 0px;
-      span {
+      margin: 10px;
+      margin-left: 0px;
+      position: relative;
+      transition: all 0.2s ease;
+      .text {
         font-size: $font-size-medium;
-        padding-bottom: 4px;
         color: white;
-        transition: all .2s ease;
       }
       &.active {
-        span {
+        .text {
           font-size: $font-size-medium-x;
-          border-bottom: 2px solid white;
+        }
+        .under {
+            display: inline-block;
+            height: 4px;
+            width: 76%;
+            position: absolute;
+            bottom: -10px;
+            left: 12%;
+            background-color: white;
+            border-radius: 4px;
         }
       }
     }

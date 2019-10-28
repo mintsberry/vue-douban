@@ -1,6 +1,7 @@
 const state = {
   saveRoute: {
-    index: 'recommend'
+    index: 'recommend',
+    amuse: 'movies'
   }
 }
 export default state

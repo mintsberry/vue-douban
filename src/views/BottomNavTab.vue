@@ -4,7 +4,7 @@
       <span class="item index-item"></span>
       <div class="subtitle">首页</div>
     </router-link>
-    <router-link tag="div" to="/book" class="tab-item" active-class="active">
+    <router-link tag="div" to="/amuse" class="tab-item" active-class="active">
       <span class="item book-item"></span>
       <div class="subtitle">书影音</div>
     </router-link>

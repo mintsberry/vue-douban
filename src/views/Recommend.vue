@@ -4,7 +4,7 @@
       <ul>
         <li v-for="item in recommends" :key="item.id" class="article">
           <div class="topic" v-if="item.topic"><i class="icon-chat"></i> {{item.topic.name}}</div>
-          <div class="text">
+          <div class="text" v-if="item.title || item.abstract">
             <h3 class="title" v-if="item.title">{{item.title}}</h3><span class="abstract" v-html="item.abstract"></span>
           </div>
           <VideoPlayer class="video" v-if="item.video" :videoUrl="item.video.video_url" :posterUrl="item.video.cover_url" />

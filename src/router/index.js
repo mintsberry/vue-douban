@@ -24,6 +24,21 @@ const routes = [
         // component: () => import('../views/Recommend.vue')
       }
     ]
+  },
+  {
+    path: '/amuse',
+    name: 'amuse',
+    component: () => import('../views/Amuse.vue'),
+    children: [
+      {
+        path: '/amuse/movies',
+        name: 'movies'
+      },
+      {
+        path: '/amuse/tv',
+        name: 'tv'
+      }
+    ]
   }
 ]
 const router = new VueRouter({
@@ -33,7 +48,7 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  const baseNav = ['index']
+  const baseNav = ['index', 'amuse']
   // const saveNav = {
   //   name: 'recommend'
   // }
