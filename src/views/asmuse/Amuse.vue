@@ -1,21 +1,21 @@
 <template>
-  <div class="index">
-    <IndexHeader/>
+  <div class="amuse">
+    <AmuseHeader></AmuseHeader>
     <keep-alive>
       <router-view class="content"></router-view>
     </keep-alive>
   </div>
 </template>
 <script>
-import IndexHeader from '../components/IndexHeader.vue'
+import AmuseHeader from '../../components/AmuseHeader.vue'
 export default {
   components: {
-    IndexHeader
+    AmuseHeader
   }
 }
 </script>
 <style lang="scss" scoped>
-.index {
+.amuse {
   position: fixed;
   top: 0;
   left: 0;
@@ -27,6 +27,7 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
+    padding: 16px;
   }
 }
 </style>

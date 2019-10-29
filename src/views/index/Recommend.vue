@@ -26,10 +26,10 @@
   </div>
 </template>
 <script>
-import { getRrecommend } from '../common/api/index'
+import { getRrecommend } from '../../common/api/index'
 import BScroll from 'better-scroll'
-import Loading from '../components/loading/Loading.vue'
-import VideoPlayer from '../components/VideoPlayer.vue'
+import Loading from '../../components/loading/Loading.vue'
+import VideoPlayer from '../../components/TabBar.vue'
 export default {
   components: {
     Loading,
@@ -136,7 +136,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '../common/scss/variable.scss';
+@import '../../common/scss/variable.scss';
 .recommend {
   overflow: hidden;
   .article-list {
@@ -181,6 +181,10 @@ export default {
         padding: 6px;
         border-radius: 32px;
         margin-bottom: 8px;
+        max-width: 90%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
       .video {
         margin-bottom: 8px;

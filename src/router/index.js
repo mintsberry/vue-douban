@@ -11,12 +11,12 @@ const routes = [
   {
     path: '/index',
     name: 'index',
-    component: () => import('../views/Index.vue'),
+    component: () => import('../views/index/Index.vue'),
     children: [
       {
         path: '/index/recommend',
         name: 'recommend',
-        component: () => import('../views/Recommend.vue')
+        component: () => import('../views/index/Recommend.vue')
       },
       {
         path: '/index/news',
@@ -28,11 +28,12 @@ const routes = [
   {
     path: '/amuse',
     name: 'amuse',
-    component: () => import('../views/Amuse.vue'),
+    component: () => import('../views/asmuse/Amuse.vue'),
     children: [
       {
         path: '/amuse/movies',
-        name: 'movies'
+        name: 'movies',
+        component: () => import('../views/asmuse/Movies.vue')
       },
       {
         path: '/amuse/tv',
@@ -59,7 +60,7 @@ router.beforeEach((to, from, next) => {
   } else if (to.matched.length === 2) {
     let navName = to.matched[0].name
     store.commit('saveNavUrl', { navName, componentName })
+    next()
   }
-  next()
 })
 export default router

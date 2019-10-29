@@ -61,6 +61,7 @@ export default {
       &.active {
         .text {
           font-size: $font-size-medium-x;
+          font-weight: 700;
         }
         .under {
             display: inline-block;
