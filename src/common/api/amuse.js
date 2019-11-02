@@ -9,12 +9,12 @@ export function getMovies () {
     return Promise.resolve(resp.data)
   })
 }
-export function getEventVideos () {
+export function getEventVideos (count) {
   const url = '/api/event_videos'
   return axios.get(url, {
     params: {
       apikey: '0dad551ec0f84ed02907ff5c42e8ec70',
-      count: 3
+      count
     }
   }).then((resp) => {
     return Promise.resolve(resp.data)
