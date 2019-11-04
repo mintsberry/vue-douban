@@ -20,7 +20,7 @@ export default {
   props: {
     tabs: {
       type: Array,
-      default: null
+      default: () => []
     },
     fontColor: {
       type: String,

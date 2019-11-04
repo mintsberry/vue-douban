@@ -20,11 +20,11 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 56px;
+  bottom: 0;
   .content {
     position: absolute;
     top: 56px;
-    bottom: 0;
+    bottom: 56px;
     left: 0;
     right: 0;
     padding: 16px;
