@@ -7,7 +7,7 @@
           <p class="text">{{item.title}}</p>
         </li>
       </ul>
-      <div class="banner">
+      <section class="banner">
         <div class="text">
           <h2 class="title">
             {{event_movies.title}}
@@ -23,7 +23,7 @@
           <div class="mask"></div>
         </div>
         <div class="foreground"></div>
-      </div>
+      </section>
       <section class="movie">
         <h2 class="nav">
           <span v-for="(item, index) in subject"
@@ -62,23 +62,30 @@
           </li>
         </ul>
       </section>
+      <section class="play">
+        <h2 class="title">豆瓣片单</h2>
+        <PlayList :data="playList"></PlayList>
+      </section>
     </div>
   </Scroll>
 </template>
 <script>
 import MovieList from '../../components/MovieList.vue'
 import HotList from '../../components/HotList.vue'
+import PlayList from '../../components/PlayList.vue'
 import Scroll from '../../components/Scroll.vue'
-import { getMovies, getEventVideos } from '../../common/api/amuse'
+import { getMovies, getEventVideos, getPlayList } from '../../common/api/amuse'
 export default {
   components: {
     MovieList,
     Scroll,
-    HotList
+    HotList,
+    PlayList
   },
   created () {
     this._getMovies()
     this._getEventVideos()
+    this._getPlayList()
   },
   data () {
     return {
@@ -88,6 +95,7 @@ export default {
       soon: [],
       hot: [],
       rank: [],
+      playList: [],
       event_movies: {},
       active: 0,
       subject: [
@@ -108,6 +116,11 @@ export default {
         .then(resp => {
           this.event_movies = resp
         })
+    },
+    _getPlayList () {
+      getPlayList().then(resp => {
+        this.playList = resp.data
+      })
     },
     _normalizeItem (resp) {
       let modules = resp.modules
@@ -159,13 +172,14 @@ export default {
   }
   .banner {
     position: relative;
-    height: 120px;
+    padding-top: 38%;
     width: 100%;
     margin-bottom: 32px;
     background-color: $color-theme-d;
     border-radius: 8px;
     .foreground {
       position: absolute;
+      top: 0;
       z-index: 7;
       width: 65%;
       height: 100%;
@@ -294,7 +308,6 @@ export default {
   }
   .rank {
     margin-bottom: 32px;
-    padding-bottom: 16px;
     .title {
       font-size: $font-size-large;
       margin-bottom: 16px;
@@ -353,6 +366,13 @@ export default {
           }
         }
       }
+    }
+  }
+  .play {
+    padding-bottom: 16px;
+    .title {
+      font-size: $font-size-large;
+      margin-bottom: 16px;
     }
   }
 }

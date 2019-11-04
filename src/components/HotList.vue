@@ -60,7 +60,6 @@ export default {
         text-overflow: ellipsis;
       }
       .rate {
-        margin-top: 4px;
         .star {
           display: inline-block;
           margin-right: 2px;
