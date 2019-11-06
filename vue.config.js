@@ -31,6 +31,10 @@ module.exports = {
         const url = baseUrl + '/api/v2/skynet/playlists'
         request(url, req, res)
       })
+      app.get('/api/tv', (req, res) => {
+        const url = baseUrl + '/api/v2/tv/modules'
+        request(url, req, res)
+      })
     }
   }
 }

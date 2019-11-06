@@ -2,7 +2,7 @@
   <Scroll class="movies" :data="data">
     <div>
       <section class="top">
-        <Enterances :data='entrances'></Enterances>
+        <Enterances :data='enterances'></Enterances>
       </section>
       <section class="banner">
         <div class="text">
@@ -22,13 +22,7 @@
         <div class="foreground"></div>
       </section>
       <section class="movie">
-        <h2 class="nav">
-          <span v-for="(item, index) in subject"
-            :key="index"
-            :class="{ acitve: index === active}"
-            @click="active = index"
-          >{{item}}</span>
-        </h2>
+        <Tab :titles="subject"  @handleClick="clickTab" ></Tab>
         <div class="showing" v-if="active === 0">
           <MovieList :movies = 'showing'/>
         </div>
@@ -56,6 +50,7 @@ import MovieList from '../../components/MovieList.vue'
 import HotList from '../../components/HotList.vue'
 import PlayList from '../../components/PlayList.vue'
 import Enterances from '../../components/Enterances.vue'
+import Tab from '../../components/Tab.vue'
 import RankList from '../../components/RankList.vue'
 import Scroll from '../../components/Scroll.vue'
 import { getMovies, getEventVideos, getPlayList } from '../../common/api/amuse'
@@ -66,7 +61,8 @@ export default {
     HotList,
     Enterances,
     RankList,
-    PlayList
+    PlayList,
+    Tab
   },
   created () {
     this._getMovies()
@@ -76,7 +72,7 @@ export default {
   data () {
     return {
       data: [],
-      entrances: [],
+      enterances: [],
       showing: [],
       soon: [],
       hot: [],
@@ -91,6 +87,9 @@ export default {
     }
   },
   methods: {
+    clickTab (index) {
+      this.active = index
+    },
     _getMovies () {
       getMovies()
         .then((resp) => {
@@ -111,14 +110,14 @@ export default {
     _normalizeItem (resp) {
       let modules = resp.modules
       this.data = modules
-      this._initEntrances(modules[0])
+      this._initEnterances(modules[0])
       this._initShowing(modules[4])
       this._initSoon(modules[5])
       this._initHot(modules[7])
       this._initRank(modules[9])
     },
-    _initEntrances (item) {
-      this.entrances = item.data.subject_entraces
+    _initEnterances (item) {
+      this.enterances = item.data.subject_entraces
     },
     _initShowing (item) {
       this.showing = item.data.subject_collection_boards[0].items.splice(0, 6)
@@ -256,21 +255,6 @@ export default {
   }
   .movie {
     margin-bottom: 32px;
-    .nav {
-      display: inline-block;
-      font-size: $font-size-small;
-      color: $color-highlight-background;
-      margin-bottom: 16px;
-      span {
-        margin-right: 8px;
-        padding: 4px;
-        &.acitve {
-          background-color: $color-theme;
-          color: white;
-          border-radius: 2px;
-        }
-      }
-    }
   }
   .hot {
     margin-bottom: 32px;

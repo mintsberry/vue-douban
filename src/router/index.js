@@ -37,7 +37,8 @@ const routes = [
       },
       {
         path: '/amuse/tv',
-        name: 'tv'
+        name: 'tv',
+        component: () => import('../views/asmuse/Tv.vue')
       }
     ]
   }
