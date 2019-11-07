@@ -266,6 +266,10 @@ export default {
   }
   .rank {
     margin-bottom: 32px;
+    .title {
+      margin-bottom: 16px;
+      font-size: $font-size-large;
+    }
   }
   .play {
     padding-bottom: 16px;

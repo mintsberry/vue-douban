@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-import AmuseHeader from '../../components/AmuseHeader.vue'
+import AmuseHeader from './AmuseHeader.vue'
 export default {
   components: {
     AmuseHeader

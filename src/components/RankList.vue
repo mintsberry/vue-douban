@@ -1,7 +1,7 @@
 <template>
   <ul class="rank-list">
     <li class="group" v-for="(group, index) in data" :key="index">
-      <div class="name">{{group.medium_name}}</div>
+      <div class="name" :style="bgColor(group)">{{group.medium_name}}</div>
       <ul class="items">
         <li class="item" v-for="(item, index) in group.items.slice(0,3)" :key="index">
           <span class="order">{{index+1}}.</span>
@@ -21,6 +21,14 @@ export default {
       type: Array,
       default: null
     }
+  },
+  methods: {
+    bgColor (item) {
+      console.log(item.background_color_scheme.primary_color_dark)
+      return {
+        background: `#${item.background_color_scheme.primary_color_dark}`
+      }
+    }
   }
 }
 </script>
@@ -33,7 +41,7 @@ export default {
     margin-bottom: 16px;
     align-items: center;
     text-align: center;
-    font-size: $font-size-medium-x;
+    font-size: $font-size-medium;
     border-radius: 4px;
     .name {
       line-height: 100px;
@@ -41,7 +49,7 @@ export default {
       height: 100px;
       color: white;
       border-radius: 4px 0 0 4px;
-      background-color: rgba(45, 52, 54, 1);
+      background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
     }
     .items {
       position: relative;
@@ -75,7 +83,7 @@ export default {
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(45, 52, 54, 0.7);
+        background-color: rgba(45, 52, 54, 0.5);
         border-radius: 0 4px 4px 0;
       }
     }

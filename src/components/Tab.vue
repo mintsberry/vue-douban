@@ -15,10 +15,6 @@ export default {
       type: Array,
       default: null
     }
-    // active: {
-    //   type: Number,
-    //   default: 0
-    // }
   },
   data () {
     return {
