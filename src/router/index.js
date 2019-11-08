@@ -39,6 +39,11 @@ const routes = [
         path: '/amuse/tv',
         name: 'tv',
         component: () => import('../views/asmuse/Tv.vue')
+      },
+      {
+        path: '/amuse/book',
+        name: 'book',
+        component: () => import('../views/asmuse/Book.vue')
       }
     ]
   }
@@ -46,7 +51,7 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  linkActiveClass: 'active',
+  linkExactActiveClass: 'active',
   routes
 })
 router.beforeEach((to, from, next) => {

@@ -2,29 +2,29 @@
   <Scroll class="tv" :data="data">
     <div>
       <section class="top">
-      <Enterances :data = 'enterances'></Enterances>
-    </section>
-    <section class="modern">
-      <div class="title">
-        <h2 class="text">热播新剧</h2>
-        <span class="more">全部 {{hotCount}} ></span>
-      </div>
-      <SelectMovieList :data="union" :titles="new_subject"></SelectMovieList>
-    </section>
-    <section class="variety-show">
-      <div class="title">
-        <h2 class="text">热播综艺</h2>
-        <span class="more">全部 {{varietyShowCount}} ></span>
-      </div>
-      <SelectMovieList :data="varietyShow" :titles="varietyShowSubject"></SelectMovieList>
-    </section>
-    <section class="rank">
-      <div class="title">
-        <h2 class="text">豆瓣榜单</h2>
-        <span class="more">全部 {{rankCount}} ></span>
-      </div>
-      <RankList :data="rank"></RankList>
-    </section>
+        <Enterances :data = 'enterances'></Enterances>
+      </section>
+      <section class="modern">
+        <div class="title">
+          <h2 class="text">热播新剧</h2>
+          <span class="more">全部 {{hotCount}} ></span>
+        </div>
+        <SelectMovieList :data="union" :titles="new_subject"></SelectMovieList>
+      </section>
+      <section class="variety-show">
+        <div class="title">
+          <h2 class="text">热播综艺</h2>
+          <span class="more">全部 {{varietyShowCount}} ></span>
+        </div>
+        <SelectMovieList :data="varietyShow" :titles="varietyShowSubject"></SelectMovieList>
+      </section>
+      <section class="rank">
+        <div class="title">
+          <h2 class="text">豆瓣榜单</h2>
+          <span class="more">全部 {{rankCount}} ></span>
+        </div>
+        <RankList :data="rank"></RankList>
+      </section>
     </div>
   </Scroll>
 </template>
@@ -76,8 +76,6 @@ export default {
       let modules = resp.modules
       this.data = modules
       this._initEnterances(modules[0])
-      // this._initShowing(modules[4])
-      // this._initSoon(modules[5])
       this._initHot(modules)
       this._initVariety(modules)
       this._initRank(modules)
@@ -120,6 +118,10 @@ export default {
       float: right;
       color: black;
     }
+  }
+  .top {
+    padding-top: 16px;
+    margin-bottom: 32px;
   }
   .modern {
     margin-bottom: 32px;

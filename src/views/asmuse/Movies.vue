@@ -137,7 +137,6 @@ export default {
 <style lang="scss" scoped>
 @import '../../common/scss/variable.scss';
 .movies {
-  overflow: hidden;
   .top {
     padding-top: 16px;
     margin-bottom: 32px;

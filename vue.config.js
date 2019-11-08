@@ -35,6 +35,14 @@ module.exports = {
         const url = baseUrl + '/api/v2/tv/modules'
         request(url, req, res)
       })
+      app.get('/api/book', (req, res) => {
+        const url = baseUrl + '/api/v2/book/modules'
+        request(url, req, res)
+      })
+      app.get('/api/book/recommend', (req, res) => {
+        const url = baseUrl + '/api/v2/book/suggestion'
+        request(url, req, res)
+      })
     }
   }
 }

@@ -20,8 +20,6 @@ export default {
 @import '../common/scss/variable.scss';
 .enterances {
     display: flex;
-    padding-top: 16px;
-    margin-bottom: 32px;
     min-height: 60px;
     .item {
       flex: 1;

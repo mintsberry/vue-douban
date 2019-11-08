@@ -7,7 +7,6 @@
         v-for="(item, index) in tabs"
         :key="index"
         class="tab"
-        append
       >
         <span class="text" :style="{color: fontColor}">{{item.text}}</span>
         <span class="under" :style="{ background: underColor, boxShadow: `0px 1px 4px 0px ${underColor}` }"></span>
@@ -20,7 +19,7 @@ export default {
   props: {
     tabs: {
       type: Array,
-      default: () => []
+      default: null
     },
     fontColor: {
       type: String,
@@ -29,11 +28,6 @@ export default {
     underColor: {
       type: String,
       default: 'white'
-    }
-  },
-  data () {
-    return {
-      currentIndex: 0
     }
   }
 }

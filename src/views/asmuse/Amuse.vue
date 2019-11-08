@@ -28,6 +28,7 @@ export default {
     left: 0;
     right: 0;
     padding: 16px;
+    overflow: hidden;
   }
 }
 </style>

@@ -24,7 +24,6 @@ export default {
   },
   methods: {
     bgColor (item) {
-      console.log(item.background_color_scheme.primary_color_dark)
       return {
         background: `#${item.background_color_scheme.primary_color_dark}`
       }

@@ -2,7 +2,8 @@
   <ul class="play-list">
     <li class="item" v-for="(item, index) in data" :key="index">
       <div class="icon">
-        <img :src="item.target_doulist.cover_url" width="80" height="80" alt="">
+        <img :src="item.target_doulist.cover_url" width="80" height="80" alt="" v-if="type === 0">
+        <img :src="item.cover_url" width="80" height="80" alt="" v-if="type === 1">
       </div>
       <div class="text">
         <div class="title">{{item.title}}</div>
@@ -21,6 +22,10 @@ export default {
     data: {
       type: Array,
       default: null
+    },
+    type: {
+      type: Number,
+      default: 0
     }
   }
 }

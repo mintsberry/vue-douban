@@ -25,7 +25,7 @@ export default {
   watch: {
     movies () {
       this.$nextTick(() => {
-        let boxWidth = this.$refs.wrapper.clientWidth
+        let boxWidth = document.querySelector('.content').clientWidth - 32
         let el = this.$refs.wrapper.children[0]
         let length = this.$refs.wrapper.childElementCount
         let offWidth = parseInt(getComputedStyle(el, null).marginRight) + el.clientWidth
@@ -36,6 +36,7 @@ export default {
           scrollX: true,
           eventPassthrough: 'vertical'
         })
+        this.scroll.scrollTo(0, 0, 700, 'ease')
       })
     }
   }
