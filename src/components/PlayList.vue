@@ -7,7 +7,8 @@
       </div>
       <div class="text">
         <div class="title">{{item.title}}</div>
-        <div class="count">共{{item.total}}部</div>
+        <div class="count" v-if="type === 0">共{{item.total}}部</div>
+        <div class="count" v-if="type === 1">共{{item.items_count}}部</div>
         <div class="owner">
           <img class="avatar" width="16" height="16" :src="item.owner.avatar"/>
           <span class="name">{{item.owner.name}} 创建</span>

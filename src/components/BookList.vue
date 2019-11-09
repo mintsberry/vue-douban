@@ -39,16 +39,18 @@ export default {
   },
   watch: {
     data () {
-      this.$nextTick(() => {
-        let item = this.$refs.list.children[0]
-        let itemWidth = item.clientWidth
-        let countWidth = this.data.length * itemWidth
-        this.$refs.list.style.width = countWidth + 'px'
-        this.scroll = new BScroll(this.$refs.wrapper, {
-          scrollX: true,
-          eventPassthrough: 'vertical'
+      let item = this.$refs.list.children[0]
+      if (item) {
+        this.$nextTick(() => {
+          let itemWidth = item.clientWidth
+          let countWidth = this.data.length * itemWidth
+          this.$refs.list.style.width = countWidth + 'px'
+          this.scroll = new BScroll(this.$refs.wrapper, {
+            scrollX: true,
+            eventPassthrough: 'vertical'
+          })
         })
-      })
+      }
     }
   }
 }
@@ -56,7 +58,6 @@ export default {
 <style lang="scss" scoped>
 @import '../common/scss/variable.scss';
 .book-list {
-  overflow: hidden;
   .list {
     display: flex;
     .item {

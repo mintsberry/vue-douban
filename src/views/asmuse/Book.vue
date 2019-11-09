@@ -1,5 +1,5 @@
 <template>
-  <Scroll class="read" :data="data">
+  <Scroll class="read" :data="data" :pullup="true" @scrollToEnd="getMore">
     <div>
       <section class="top">
         <Enterances :data="enterances"></Enterances>
@@ -33,6 +33,7 @@
         </div>
         <SimpleRecommendList :data='recommendList'></SimpleRecommendList>
       </section>
+      <Loading v-show="isMore"></Loading>
     </div>
   </Scroll>
 </template>
@@ -43,6 +44,7 @@ import Scroll from '../../components/Scroll.vue'
 import PlayList from '../../components/PlayList.vue'
 import RankList from '../../components/RankList.vue'
 import SimpleRecommendList from '../../components/SimpleRecommendList.vue'
+import Loading from '../../components/loading/Loading.vue'
 import { getBook, getBookRecommend } from '../../common/api/book'
 export default {
   components: {
@@ -51,6 +53,7 @@ export default {
     RankList,
     PlayList,
     SimpleRecommendList,
+    Loading,
     Scroll
   },
   data () {
@@ -64,6 +67,7 @@ export default {
       playList: [],
       recommendList: [],
       listCount: null,
+      isMore: false,
       start: 0
     }
   },
@@ -72,6 +76,13 @@ export default {
     this._getRecommend()
   },
   methods: {
+    getMore () {
+      getBookRecommend(this.start, 10).then((resp) => {
+        this.recommendList = this.recommendList.concat(resp.items)
+        this.start += 10
+        this.isMore = this.start < this.total
+      })
+    },
     _getBook () {
       getBook().then((resp) => {
         this._normalizeItem(resp)
@@ -82,6 +93,7 @@ export default {
         this.total = resp.total
         this.recommendList = resp.items
         this.start += 10
+        this.isMore = this.start < this.total
       })
     },
     _normalizeItem (resp) {
@@ -130,7 +142,10 @@ export default {
     }
   }
   .top {
-    padding-top: 16px;;
+    padding-top: 16px;
+  }
+  .recommend {
+    margin-bottom: 8px;
   }
 }
 </style>

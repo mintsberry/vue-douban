@@ -46,7 +46,7 @@ export default {
 @import '../common/scss/variable.scss';
 .movie-list {
   width: 100%;
-  overflow: hidden;
+  // overflow: hidden;
   .movie-wrapper {
     .movie-box {
         display: -webkit-box;
