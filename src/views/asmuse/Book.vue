@@ -31,7 +31,7 @@
         <div class="title">
           <h2 class="text">为你推荐</h2>
         </div>
-        <SimpleRecommendList :data='recommendList'></SimpleRecommendList>
+        <SimpleRecommendList :data='recommendList' :type='1'></SimpleRecommendList>
       </section>
       <Loading v-show="isMore"></Loading>
     </div>

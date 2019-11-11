@@ -43,6 +43,10 @@ module.exports = {
         const url = baseUrl + '/api/v2/book/suggestion'
         request(url, req, res)
       })
+      app.get('/api/tv/recommend', (req, res) => {
+        const url = baseUrl + '/api/v2/tv/suggestion'
+        request(url, req, res)
+      })
     }
   }
 }

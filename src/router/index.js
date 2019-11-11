@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/index/recommend'
+    redirect: '/amuse/movies'
   },
   {
     path: '/index',

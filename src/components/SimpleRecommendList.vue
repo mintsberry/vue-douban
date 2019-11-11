@@ -17,7 +17,7 @@
             </div>
             <div class="right">
               <div class="icon"><i class="icon-heart"></i></div>
-              <div class="text">想读</div>
+              <div class="text">{{text[type]}}</div>
             </div>
           </div>
           <div class="tip">猜你喜欢</div>
@@ -32,10 +32,19 @@ export default {
   components: {
     Star
   },
+  data () {
+    return {
+      text: ['想看', '想读']
+    }
+  },
   props: {
     data: {
       type: Array,
       default: null
+    },
+    type: {
+      type: Number,
+      default: 0
     }
   }
 }

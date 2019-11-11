@@ -1,5 +1,5 @@
 <template>
-  <Scroll class="tv" :data="data">
+  <Scroll class="tv" :data="data" :pullup="true" @scrollToEnd="getMore" >
     <div>
       <section class="top">
         <Enterances :data = 'enterances'></Enterances>
@@ -25,31 +25,45 @@
         </div>
         <RankList :data="rank"></RankList>
       </section>
+      <section class="recommend">
+        <div class="title">
+          <h2 class="text">为你推荐</h2>
+        </div>
+        <SimpleRecommendList :data='recommendList' :type='0'></SimpleRecommendList>
+      </section>
+      <Loading v-show="isMore"></Loading>
     </div>
   </Scroll>
 </template>
 <script>
-import { getTv } from '../../common/api/tv'
+import { getTv, getTvRecommend } from '../../common/api/tv'
 import Enterances from '../../components/Enterances.vue'
 import RankList from '../../components/RankList.vue'
 import SelectMovieList from '../../components/SelectMovieList.vue'
+import SimpleRecommendList from '../../components/SimpleRecommendList.vue'
 import Scroll from '../../components/Scroll.vue'
+import Loading from '../../components/loading/Loading.vue'
 export default {
   components: {
     Enterances,
     SelectMovieList,
     Scroll,
-    RankList
+    RankList,
+    Loading,
+    SimpleRecommendList
   },
   data () {
     return {
       data: [],
       enterances: [],
+      isMore: false,
       hotCount: null,
       varietyShowCount: null,
       rankCount: null,
       rank: [],
       union: [],
+      start: 0,
+      recommendList: [],
       varietyShow: [],
       new_subject: [
         '综合',
@@ -70,8 +84,24 @@ export default {
     getTv().then((resp) => {
       this._normalizeItem(resp)
     })
+    this._getRecommend()
   },
   methods: {
+    getMore () {
+      getTvRecommend(this.start, 10).then((resp) => {
+        this.recommendList = this.recommendList.concat(resp.items)
+        this.start += 10
+        this.isMore = this.start < this.total
+      })
+    },
+    _getRecommend () {
+      getTvRecommend(this.start, 10).then((resp) => {
+        this.total = resp.total
+        this.recommendList = resp.items
+        this.start += 10
+        this.isMore = this.start < this.total
+      })
+    },
     _normalizeItem (resp) {
       let modules = resp.modules
       this.data = modules
@@ -131,6 +161,9 @@ export default {
   }
   .rank {
     padding-bottom: 16px;
+  }
+  .recommend {
+    margin-bottom: 8px;
   }
 }
 </style>
