@@ -47,6 +47,10 @@ module.exports = {
         const url = baseUrl + '/api/v2/tv/suggestion'
         request(url, req, res)
       })
+      app.get('/api/movies/recommend', (req, res) => {
+        const url = baseUrl + '/api/v2/movie/suggestion'
+        request(url, req, res)
+      })
     }
   }
 }
