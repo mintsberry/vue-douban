@@ -42,6 +42,10 @@
         <h2 class="title">豆瓣片单</h2>
         <PlayList :data="playList"></PlayList>
       </section>
+      <section class="recommend">
+        <h2 class="title">为你推荐</h2>
+        <MovieRecommendList/>
+      </section>
     </div>
   </Scroll>
 </template>
@@ -53,6 +57,7 @@ import Enterances from '../../components/Enterances.vue'
 import Tab from '../../components/Tab.vue'
 import RankList from '../../components/RankList.vue'
 import Scroll from '../../components/Scroll.vue'
+import MovieRecommendList from './MovieRecommend/MovieRecommendList.vue'
 import { getMovies, getEventVideos, getPlayList } from '../../common/api/amuse'
 export default {
   components: {
@@ -62,6 +67,7 @@ export default {
     Enterances,
     RankList,
     PlayList,
+    MovieRecommendList,
     Tab
   },
   created () {
@@ -80,6 +86,9 @@ export default {
       playList: [],
       event_movies: {},
       active: 0,
+      start: 0,
+      isMore: false,
+      recommendList: [],
       subject: [
         '正在热映',
         '即将上映'
@@ -271,6 +280,13 @@ export default {
     }
   }
   .play {
+    margin-bottom: 32px;
+    .title {
+      font-size: $font-size-large;
+      margin-bottom: 16px;
+    }
+  }
+  .recommend {
     padding-bottom: 16px;
     .title {
       font-size: $font-size-large;
