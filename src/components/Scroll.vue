@@ -42,6 +42,9 @@ export default {
           }
         })
       }
+    },
+    refresh () {
+      this.scroll.refresh()
     }
   }
 }

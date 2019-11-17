@@ -1,5 +1,5 @@
 <template>
-  <Scroll class="movies" :data="data">
+  <Scroll class="movies" :data="data" ref="scroll">
     <div>
       <section class="top">
         <Enterances :data='enterances'></Enterances>
@@ -44,7 +44,7 @@
       </section>
       <section class="recommend">
         <h2 class="title">为你推荐</h2>
-        <MovieRecommendList/>
+        <MovieRecommendList @refresh="refreshScroll"/>
       </section>
     </div>
   </Scroll>
@@ -98,6 +98,9 @@ export default {
   methods: {
     clickTab (index) {
       this.active = index
+    },
+    refreshScroll () {
+      this.$refs.scroll.refresh()
     },
     _getMovies () {
       getMovies()

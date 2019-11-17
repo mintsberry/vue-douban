@@ -13,11 +13,19 @@
         <span class="text">筛选</span>
       </div>
     </div>
+    <ul class="recommend">
+      <li v-for="(item, index) in items" :key="index" class="item">
+        <MovieCard v-if="item.card === 'chart' || item.card === 'doulist'" :data="item"></MovieCard>
+        <MovieRecommend v-if="item.card === 'subject'" :data="item"/>
+      </li>
+    </ul>
   </div>
 </template>
 <script>
 import { getMoviesRecommend } from '../../../common/api/amuse'
 import BScroll from 'better-scroll'
+import MovieCard from './MovieCard.vue'
+import MovieRecommend from './MovieRecommend.vue'
 const requestParam = {
   tags: [],
   score_range: '0, 10',
@@ -26,6 +34,10 @@ const requestParam = {
   count: 8
 }
 export default {
+  components: {
+    MovieCard,
+    MovieRecommend
+  },
   data () {
     return {
       param: Object.assign({}, requestParam),
@@ -41,6 +53,7 @@ export default {
         this.tags = resp.tags
         this.top_tags = resp.recommend_tags
         this.items = resp.items
+        this.$emit('refresh')
       })
   },
   watch: {
@@ -50,7 +63,7 @@ export default {
         let li = ul.children
         let width = 0
         for (let i = 0; i < li.length; i++) {
-          width += li[i].clientWidth + 2
+          width += li[i].clientWidth + 8
         }
         ul.style.width = width + 'px'
         this.topScroll = new BScroll(this.$refs.top, {
@@ -89,12 +102,14 @@ export default {
         overflow: hidden;
         font-size: $font-size-small;
         .tab {
-            padding: 4px 12px;
-            margin-right: 2px;
+            padding: 4px 8px;
+            margin-right: 6px;
             line-height: 14px;
+            border-radius: 12px;
+            border: 1px solid #aaa;
           &.active {
             background-color: #00C5AA;
-            border-radius: 12px;
+            border: 1px solid white;
             color: white;
           }
         }
@@ -108,6 +123,11 @@ export default {
       .text {
         vertical-align: top;
       }
+    }
+  }
+  .recommend {
+    .item {
+      margin-top: 16px;
     }
   }
 }
