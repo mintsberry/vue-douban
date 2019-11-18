@@ -1,5 +1,5 @@
 <template>
-  <Scroll class="movies" :data="data" ref="scroll">
+  <Scroll class="movies" :data="data" ref="scroll" :pullup="true" @scrollToEnd="pullUp">
     <div>
       <section class="top">
         <Enterances :data='enterances'></Enterances>
@@ -44,7 +44,7 @@
       </section>
       <section class="recommend">
         <h2 class="title">为你推荐</h2>
-        <MovieRecommendList @refresh="refreshScroll"/>
+        <MovieRecommendList @refresh="refreshScroll" ref="recommend"/>
       </section>
     </div>
   </Scroll>
@@ -101,6 +101,9 @@ export default {
     },
     refreshScroll () {
       this.$refs.scroll.refresh()
+    },
+    pullUp () {
+      this.$refs.recommend.getMore()
     },
     _getMovies () {
       getMovies()

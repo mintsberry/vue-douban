@@ -19,6 +19,7 @@
         <MovieRecommend v-if="item.card === 'subject'" :data="item"/>
       </li>
     </ul>
+    <Loading v-show="isMore" class="loading"></Loading>
   </div>
 </template>
 <script>
@@ -26,8 +27,9 @@ import { getMoviesRecommend } from '../../../common/api/amuse'
 import BScroll from 'better-scroll'
 import MovieCard from './MovieCard.vue'
 import MovieRecommend from './MovieRecommend.vue'
+import Loading from '../../../components/loading/Loading.vue'
 const requestParam = {
-  tags: [],
+  tags: '',
   score_range: '0, 10',
   quick_marked: false,
   start: 0,
@@ -36,6 +38,7 @@ const requestParam = {
 export default {
   components: {
     MovieCard,
+    Loading,
     MovieRecommend
   },
   data () {
@@ -43,18 +46,12 @@ export default {
       param: Object.assign({}, requestParam),
       top_tags: [],
       tags: [],
-      items: []
+      items: [],
+      isMore: false
     }
   },
   created () {
-    getMoviesRecommend(this.param)
-      .then((resp) => {
-        console.log(resp)
-        this.tags = resp.tags
-        this.top_tags = resp.recommend_tags
-        this.items = resp.items
-        this.$emit('refresh')
-      })
+    this.init()
   },
   watch: {
     top_tags () {
@@ -70,18 +67,58 @@ export default {
           scrollX: true
         })
       })
+    },
+    items () {
+      this.$emit('refresh')
+    },
+    'param.tags': {
+      deep: true,
+      handler: function (newV, oldV) {
+        this.param.start = 0
+        getMoviesRecommend(this.param)
+          .then((resp) => {
+            this.items = resp.items
+            this.param.start += this.param.count
+            this.isMore = this.param.start < resp.total
+          })
+      }
     }
   },
   methods: {
     addTag (el) {
       let flag = el.target.classList.toggle('active')
       let tag = el.target.innerText
-      let tags = this.param.tags
+      let tags = this.param.tags.split(',')
       if (flag) {
         tags.push(tag)
       } else {
         tags.splice(tags.indexOf(tag), 1)
       }
+      if (tags[0] === '') {
+        tags.splice(0, 1)
+      }
+      this.param.tags = tags.join(',')
+    },
+    getMore () {
+      if (this.isMore && !this.loading) {
+        this.loading = true
+        getMoviesRecommend(this.param)
+          .then((resp) => {
+            this.param.start += this.param.count
+            this.items = this.items.concat(resp.items)
+            this.loading = false
+          })
+      }
+    },
+    init () {
+      getMoviesRecommend(this.param)
+        .then((resp) => {
+          this.tags = resp.tags
+          this.top_tags = resp.recommend_tags
+          this.items = resp.items
+          this.param.start += this.param.count
+          this.isMore = this.param.start < resp.total
+        })
     }
   }
 }
@@ -89,6 +126,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../../common/scss/variable.scss';
 .movie-recommend-list {
+  min-height: 360px;
   .top-tags {
     display: flex;
     line-height: 20px;
@@ -129,6 +167,9 @@ export default {
     .item {
       margin-top: 16px;
     }
+  }
+  .loading {
+    margin-top: 16px;
   }
 }
 </style>
