@@ -2,8 +2,8 @@
   <div class="movie-recommend">
     <div class="cover">
       <img :src="data.pic.large" class="pic" height="112" width="84">
-      <div class="swiper">
-        <img :src="data.photos[0]" alt="" height="112" v-if="data.photos[0]">
+      <div class="swiper-wrapper">
+        <Swiper :data="data.photos" v-if="data.photos[0]"/>
         <i class="icon icon-planet" v-if="!data.photos[0]"></i>
       </div>
     </div>
@@ -32,8 +32,10 @@
 </template>
 <script>
 import Star from '../../../components/star/Star.vue'
+import Swiper from '../../../components/Swiper.vue'
 export default {
   components: {
+    Swiper,
     Star
   },
   props: {
@@ -57,13 +59,16 @@ export default {
       margin-right: 16px;
       box-shadow: 2px 4px 4px 2px #eee;
     }
-    .swiper {
+    .swiper-wrapper {
       position: relative;
+      overflow: hidden;
       flex: 1;
       background-color: #eee;
       border-radius: 4px;
+      height: 112px;
       img {
         width: 100%;
+        height: 112px;
         object-fit: cover;
       }
       .icon {
