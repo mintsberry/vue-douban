@@ -29,7 +29,7 @@
 import { getRrecommend } from '../../common/api/index'
 import BScroll from 'better-scroll'
 import Loading from '../../components/loading/Loading.vue'
-import VideoPlayer from '../../components/TabBar.vue'
+import VideoPlayer from '../../components/VideoPlayer.vue'
 export default {
   components: {
     Loading,

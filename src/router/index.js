@@ -33,7 +33,14 @@ const routes = [
       {
         path: '/amuse/movies',
         name: 'movies',
-        component: () => import('../views/asmuse/Movies.vue')
+        component: () => import('../views/asmuse/Movies.vue'),
+        children: [
+          {
+            path: '/amuse/movies/:id',
+            name: 'moviesDetail',
+            component: () => import('../views/asmuse/MoviesDetail.vue')
+          }
+        ]
       },
       {
         path: '/amuse/tv',
@@ -66,6 +73,8 @@ router.beforeEach((to, from, next) => {
   } else if (to.matched.length === 2) {
     let navName = to.matched[0].name
     store.commit('saveNavUrl', { navName, componentName })
+    next()
+  } else {
     next()
   }
 })

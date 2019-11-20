@@ -24,7 +24,7 @@
       <div class="comment">
         {{data.comment.comment}}<span class="user"> --{{data.comment.user.name}}</span>
       </div>
-      <div class="tags">
+      <div class="tags" v-if="data.tags">
         {{data.tags[0].name}}
       </div>
     </div>

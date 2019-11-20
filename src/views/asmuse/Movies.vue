@@ -47,6 +47,7 @@
         <MovieRecommendList @refresh="refreshScroll" ref="recommend"/>
       </section>
     </div>
+    <router-view></router-view>
   </Scroll>
 </template>
 <script>

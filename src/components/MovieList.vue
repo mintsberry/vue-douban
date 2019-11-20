@@ -3,7 +3,7 @@
     <div class="movie-wrapper" ref="box">
       <div class="movie-box" ref="wrapper">
         <div class="img-box" v-for="(item, index) in movies" :key="index">
-          <div class="img-wrapper">
+          <div class="img-wrapper" @click="toMovieDetail(item.id)">
             <img :src="item.cover.url" alt="">
             <span class="like"></span>
           </div>
@@ -38,6 +38,11 @@ export default {
         })
         this.scroll.scrollTo(0, 0, 700, 'ease')
       })
+    }
+  },
+  methods: {
+    toMovieDetail (id) {
+      this.$router.push({ path: `movies/${id}` })
     }
   }
 }

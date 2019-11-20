@@ -33,7 +33,17 @@ export function getPlayList (count = 4) {
     return Promise.resolve(resp.data)
   })
 }
-
+export function getDetail (id) {
+  const url = `/api/movies/${id}`
+  let params = Object.assign({}, commParams, {
+    id
+  })
+  return axios.get(url, {
+    params
+  }).then((resp) => {
+    return Promise.resolve(resp.data)
+  })
+}
 export function getMoviesRecommend (requestParams) {
   const url = '/api/movies/recommend'
   let params = Object.assign({}, commParams, requestParams, {
