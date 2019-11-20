@@ -1,20 +1,29 @@
 <template>
   <div class="movies-detail">
-    Detail
+    <Detail :data='data' :title="'电影'" v-if="data"></Detail>
   </div>
 </template>
 <script>
 import { getDetail } from '../../common/api/amuse'
+import Detail from '../../components/Detail.vue'
 export default {
+  components: {
+    Detail
+  },
   created () {
     this._getDetail()
+  },
+  data () {
+    return {
+      data: null
+    }
   },
   methods: {
     _getDetail () {
       let id = this.$route.params.id
       getDetail(id)
         .then((resp) => {
-          console.log(resp)
+          this.data = resp
         })
     }
   }
