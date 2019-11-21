@@ -1,10 +1,10 @@
 <template>
   <div class="movies-detail">
-    <Detail :data='data' :title="'电影'" v-if="data"></Detail>
+    <Detail :data='data' :title="'电影'" :rating="rating" v-if="data"></Detail>
   </div>
 </template>
 <script>
-import { getDetail } from '../../common/api/amuse'
+import { getDetail, getRating } from '../../common/api/amuse'
 import Detail from '../../components/Detail.vue'
 export default {
   components: {
@@ -12,10 +12,12 @@ export default {
   },
   created () {
     this._getDetail()
+    this._getRating()
   },
   data () {
     return {
-      data: null
+      data: null,
+      rating: null
     }
   },
   methods: {
@@ -24,6 +26,13 @@ export default {
       getDetail(id)
         .then((resp) => {
           this.data = resp
+        })
+    },
+    _getRating () {
+      let id = this.$route.params.id
+      getRating(id)
+        .then((resp) => {
+          this.rating = resp
         })
     }
   }

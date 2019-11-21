@@ -27,6 +27,10 @@ module.exports = {
         const url = baseUrl + `/api/v2/movie/${req.query.id}`
         request(url, req, res)
       })
+      app.get(/^\/api\/movies\/[0-9]+\/rating/, (req, res) => {
+        const url = baseUrl + `/api/v2/movie/${req.query.id}/rating`
+        request(url, req, res)
+      })
       app.get('/api/event_videos', (req, res) => {
         const url = baseUrl + '/api/v2/skynet/playlist/recommend/event_videos'
         request(url, req, res)

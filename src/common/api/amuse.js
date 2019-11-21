@@ -44,6 +44,17 @@ export function getDetail (id) {
     return Promise.resolve(resp.data)
   })
 }
+export function getRating (id) {
+  const url = `/api/movies/${id}/rating`
+  let params = Object.assign({}, commParams, {
+    id
+  })
+  return axios.get(url, {
+    params
+  }).then((resp) => {
+    return Promise.resolve(resp.data)
+  })
+}
 export function getMoviesRecommend (requestParams) {
   const url = '/api/movies/recommend'
   let params = Object.assign({}, commParams, requestParams, {

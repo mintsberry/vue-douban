@@ -2,7 +2,7 @@
   <div class="detail" :style="{ backgroundImage: `linear-gradient(#${data.color_scheme.primary_color_light}, #${data.color_scheme.primary_color_dark})`}">
     <AppBar :title="title" :left="'arrow_left'" @left="back"/>
     <div class="movie-content">
-      <div class="top">
+      <div class="desc">
         <div class="left">
           <img width="84" height="112" :src="data.pic.large" alt="">
         </div>
@@ -22,17 +22,42 @@
           </div>
         </div>
       </div>
+      <div class="rating" v-if="data.rating.count !== 0">
+        <div class="top">
+          <span>豆瓣评分™ </span>
+          <span>></span>
+        </div>
+        <div class="middle">
+          <div class="rate">
+            <div>{{data.rating.value}}</div>
+            <Star :score="data.rating.value / 2" size='24'></Star>
+          </div>
+          <StarRatingList :stats="rating.stats" v-if="rating"/>
+        </div>
+        <div class="bottom">
+          <span>{{rating.done_count | simplifyNum}}人看过</span>
+          <span>{{rating.wish_count | simplifyNum}}人想看</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import AppBar from './AppBar.vue'
+import Star from './star/Star.vue'
+import StarRatingList from './StarRatingList.vue'
 export default {
   components: {
-    AppBar
+    StarRatingList,
+    AppBar,
+    Star
   },
   props: {
     data: {
+      type: Object,
+      default: null
+    },
+    rating: {
       type: Object,
       default: null
     },
@@ -45,6 +70,15 @@ export default {
     info () {
       let str = this.data.card_subtitle.split('/')
       return `${str[1]}/${str[2]}/上映时间:`
+    }
+  },
+  filters: {
+    simplifyNum (val) {
+      if (val > 1000) {
+        let str = (val / 10000).toFixed(1)
+        return `${str}万`
+      }
+      return 'val'
     }
   },
   methods: {
@@ -60,7 +94,7 @@ export default {
   height: 100%;
   .movie-content {
     padding: 16px;
-    .top {
+    .desc {
       display: flex;
       .left {
         width: 84px;
@@ -133,6 +167,49 @@ export default {
             }
           }
         }
+      }
+    }
+    .rating {
+      margin-top: 8px;
+      padding: 8px 16px;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+      color: white;
+      clear: both;
+      .top {
+        font-size: $font-size-small;
+        span:last-child {
+          float: right;
+        }
+      }
+      .middle {
+        display: flex;
+        justify-content: center;
+        margin-top: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, .2);
+        .rate {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: center;
+          font-size: $font-size-large-x;
+          margin-right: 8px;
+        }
+      }
+      .bottom {
+        margin-top: 8px;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: $font-size-small-s;
+        float: right;
+        span:first-child {
+          margin-right: 4px;
+        }
+      }
+      &::after {
+        content: "";
+        display: block;
+        clear: both;
       }
     }
   }
