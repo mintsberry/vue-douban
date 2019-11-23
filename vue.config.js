@@ -19,20 +19,35 @@ module.exports = {
         const url = baseUrl + '/api/v2/elendil/recommend_feed'
         request(url, req, res)
       })
-      app.get('/api/movies', (req, res) => {
+      app.get('/api/movie', (req, res) => {
         const url = baseUrl + '/api/v2/movie/modules'
         request(url, req, res)
       })
-      app.get(/^\/api\/movies\/[0-9]+$/, (req, res) => {
+      app.get(/^\/api\/movie\/[0-9]+$/, (req, res) => {
         const url = baseUrl + `/api/v2/movie/${req.query.id}`
         request(url, req, res)
       })
-      app.get(/^\/api\/movies\/[0-9]+\/rating/, (req, res) => {
+      app.get(/^\/api\/movie\/[0-9]+\/rating/, (req, res) => {
         const url = baseUrl + `/api/v2/movie/${req.query.id}/rating`
+        request(url, req, res)
+      })
+      app.get(/^\/api\/movie\/[0-9]+\/celebrities/, (req, res) => {
+        const url = baseUrl + `/api/v2/movie/${req.query.id}/celebrities`
+        request(url, req, res)
+      })
+      app.get(/^\/api\/movie\/[0-9]+\/\w+/, (req, res) => {
+        const pathname = req._parsedUrl.pathname
+        let url = pathname.slice(pathname.indexOf('movie'))
+        url = baseUrl + '/api/v2/' + url
+        // const url = baseUrl + `/api/v2/movie/${req.query.id}/celebrities`
         request(url, req, res)
       })
       app.get('/api/event_videos', (req, res) => {
         const url = baseUrl + '/api/v2/skynet/playlist/recommend/event_videos'
+        request(url, req, res)
+      })
+      app.get('/api/movie/recommend', (req, res) => {
+        const url = baseUrl + '/api/v2/movie/recommend'
         request(url, req, res)
       })
       app.get('/api/play_list', (req, res) => {
@@ -55,11 +70,6 @@ module.exports = {
         const url = baseUrl + '/api/v2/tv/suggestion'
         request(url, req, res)
       })
-      app.get('/api/movies/recommend', (req, res) => {
-        const url = baseUrl + '/api/v2/movie/recommend'
-        request(url, req, res)
-      })
-      
     }
   }
 }

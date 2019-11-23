@@ -1,10 +1,18 @@
 <template>
   <div class="movies-detail">
-    <Detail :data='data' :title="'电影'" :rating="rating" v-if="data"></Detail>
+    <Detail
+      :data='data'
+      :title="'电影'"
+      :rating="rating"
+      :staff="staff"
+      :hotInterests="hotInterests"
+      :related="related"
+      v-if="data">
+      </Detail>
   </div>
 </template>
 <script>
-import { getDetail, getRating } from '../../common/api/amuse'
+import { getDetail, getRating, getStaff, gethotInterests, getRelated } from '../../common/api/amuse'
 import Detail from '../../components/Detail.vue'
 export default {
   components: {
@@ -13,11 +21,17 @@ export default {
   created () {
     this._getDetail()
     this._getRating()
+    this._getStaff()
+    this._gethotInterests()
+    this._getRelated()
   },
   data () {
     return {
       data: null,
-      rating: null
+      rating: null,
+      staff: null,
+      hotInterests: null,
+      related: null
     }
   },
   methods: {
@@ -34,6 +48,36 @@ export default {
         .then((resp) => {
           this.rating = resp
         })
+    },
+    _getStaff () {
+      let id = this.$route.params.id
+      getStaff(id)
+        .then((resp) => {
+          this._normalizeStaff(resp)
+        })
+    },
+    _gethotInterests () {
+      let id = this.$route.params.id
+      gethotInterests(id)
+        .then((resp) => {
+          this.hotInterests = resp
+        })
+    },
+    _getRelated () {
+      let id = this.$route.params.id
+      getRelated(id)
+        .then((resp) => {
+          this.related = resp
+        })
+    },
+    _normalizeStaff (info) {
+      let staff = {
+        person: [],
+        count: info.total
+      }
+      staff.person.push(...info.directors)
+      staff.person.push(...info.actors)
+      this.staff = staff
     }
   }
 }

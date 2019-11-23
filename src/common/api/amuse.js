@@ -3,7 +3,7 @@ import {
   commParams
 } from './params'
 export function getMovies () {
-  const url = '/api/movies'
+  const url = '/api/movie'
   let params = Object.assign({}, commParams)
   return axios.get(url, {
     params
@@ -34,7 +34,7 @@ export function getPlayList (count = 4) {
   })
 }
 export function getDetail (id) {
-  const url = `/api/movies/${id}`
+  const url = `/api/movie/${id}`
   let params = Object.assign({}, commParams, {
     id
   })
@@ -45,7 +45,7 @@ export function getDetail (id) {
   })
 }
 export function getRating (id) {
-  const url = `/api/movies/${id}/rating`
+  const url = `/api/movie/${id}/rating`
   let params = Object.assign({}, commParams, {
     id
   })
@@ -55,8 +55,33 @@ export function getRating (id) {
     return Promise.resolve(resp.data)
   })
 }
+export function getStaff (id) {
+  const url = `/api/movie/${id}/celebrities`
+  let params = Object.assign({}, commParams, {
+    id
+  })
+  return axios.get(url, {
+    params
+  }).then((resp) => {
+    return Promise.resolve(resp.data)
+  })
+}
+export function gethotInterests (id) {
+  const url = `/api/movie/${id}/hot_interests?`
+  let params = Object.assign({}, commParams, {
+    id
+  })
+  return getMovieRelatedInfo(url, params)
+}
+export function getRelated (id) {
+  const url = `/api/movie/${id}/related_items?`
+  let params = Object.assign({}, commParams, {
+    id
+  })
+  return getMovieRelatedInfo(url, params)
+}
 export function getMoviesRecommend (requestParams) {
-  const url = '/api/movies/recommend'
+  const url = '/api/movie/recommend'
   let params = Object.assign({}, commParams, requestParams, {
     udid: '998f4157313c3c7c4ecab0acb91ab80989d34be9',
     rom: 'android',
@@ -73,6 +98,13 @@ export function getMoviesRecommend (requestParams) {
     _sig: 'RcZz6bouRmcstxg9fahnFCDNGDk=',
     _ts: '1573737249'
   })
+  return axios.get(url, {
+    params
+  }).then((resp) => {
+    return Promise.resolve(resp.data)
+  })
+}
+function getMovieRelatedInfo (url, params) {
   return axios.get(url, {
     params
   }).then((resp) => {

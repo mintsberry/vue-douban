@@ -4,7 +4,8 @@
       <div class="movie-box" ref="wrapper">
         <div class="img-box" v-for="(item, index) in movies" :key="index">
           <div class="img-wrapper" @click="toMovieDetail(item.id)">
-            <img :src="item.cover.url" alt="">
+            <img :src="item.cover.url" alt="" v-if="item.cover">
+            <img :src="item.pic.large" alt="" v-if="item.pic">
             <span class="like"></span>
           </div>
           <span class="text">{{item.title}}</span>
@@ -22,9 +23,20 @@ export default {
       default: () => []
     }
   },
+  mounted () {
+    this.initScroll()
+  },
   watch: {
     movies () {
-      this.$nextTick(() => {
+      this.initScroll()
+    }
+  },
+  methods: {
+    toMovieDetail (id) {
+      this.$router.push({ path: `movies/${id}` })
+    },
+    initScroll () {
+      setTimeout(() => {
         let boxWidth = document.querySelector('.content').clientWidth - 32
         let el = this.$refs.wrapper.children[0]
         let length = this.$refs.wrapper.childElementCount
@@ -37,12 +49,7 @@ export default {
           eventPassthrough: 'vertical'
         })
         this.scroll.scrollTo(0, 0, 700, 'ease')
-      })
-    }
-  },
-  methods: {
-    toMovieDetail (id) {
-      this.$router.push({ path: `movies/${id}` })
+      }, 20)
     }
   }
 }

@@ -16,6 +16,10 @@ export default {
     pullup: {
       type: Boolean,
       default: false
+    },
+    isPropagation: {
+      type: Boolean,
+      default: true
     }
   },
   mounted () {
@@ -33,7 +37,8 @@ export default {
   methods: {
     _initScroll () {
       this.scroll = new BScroll(this.$refs.scroll, {
-        click: true
+        click: true,
+        stopPropagation: !this.isPropagation
       })
       if (this.pullup) {
         this.scroll.on('scrollEnd', () => {

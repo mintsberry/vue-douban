@@ -70,7 +70,6 @@ export default {
   },
   methods: {
     progressWidth (num) {
-      console.log('TCL: progressWidth -> num', num)
       // let width = this.$refs.progress.clientWidth
       let width = 128 * num.toFixed(2)
       return `width: ${width}px`
