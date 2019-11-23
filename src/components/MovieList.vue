@@ -37,6 +37,9 @@ export default {
     },
     initScroll () {
       setTimeout(() => {
+        if (!this.$refs.wrapper.children[0]) {
+          return
+        }
         let boxWidth = document.querySelector('.content').clientWidth - 32
         let el = this.$refs.wrapper.children[0]
         let length = this.$refs.wrapper.childElementCount
@@ -54,7 +57,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../common/scss/variable.scss';
 .movie-list {
   width: 100%;
@@ -97,7 +100,7 @@ export default {
           overflow: hidden;
           text-overflow: ellipsis;
           font-size: $font-size-small;
-          color: $color-dialog-background;
+          color: #666;
         }
       }
     }

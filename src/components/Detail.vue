@@ -79,7 +79,7 @@
               </li>
             </ul>
           </div>
-          <div class="hot_interests" v-if="related">
+          <div class="relate" v-if="related">
             <div class="title">喜欢这部电影的也喜欢<span class="all">全部{{hotInterests.total}}<i class="icon-arrow_right"></i></span></div>
             <MovieList :movies="related.subjects"/>
           </div>
@@ -150,7 +150,7 @@ export default {
       return `${str[1]}/${str[2]}/上映时间:`
     },
     integrate () {
-      return [this.data, this.rating, this.staff]
+      return [this.data, this.rating, this.staff, this.related, this.hotInterests]
     }
   },
   mounted () {
@@ -181,7 +181,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss" >
 @import '../common/scss/variable.scss';
 .detail {
   height: 100%;
@@ -442,6 +442,15 @@ export default {
     }
     .wrapper:last-child {
       padding-bottom: 16px;
+    }
+    .relate {
+      margin-top: 32px;
+      .movie-list {
+        margin-top: 16px;
+        .text{
+          color: white;
+        }
+      }
     }
   }
 }
