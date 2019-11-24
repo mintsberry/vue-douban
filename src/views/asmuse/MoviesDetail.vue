@@ -7,7 +7,9 @@
       :staff="staff"
       :hotInterests="hotInterests"
       :related="related"
-      v-if="data">
+      v-if="data"
+      @clickItem="toMovieDetail"
+      >
       </Detail>
   </div>
 </template>
@@ -19,11 +21,7 @@ export default {
     Detail
   },
   created () {
-    this._getDetail()
-    this._getRating()
-    this._getStaff()
-    this._gethotInterests()
-    this._getRelated()
+    this._initMovieDetail()
   },
   data () {
     return {
@@ -34,7 +32,22 @@ export default {
       related: null
     }
   },
+  watch: {
+    $route () {
+      this._initMovieDetail()
+    }
+  },
   methods: {
+    toMovieDetail (id) {
+      this.$router.push({ path: `${id}` })
+    },
+    _initMovieDetail () {
+      this._getDetail()
+      this._getRating()
+      this._getStaff()
+      this._gethotInterests()
+      this._getRelated()
+    },
     _getDetail () {
       let id = this.$route.params.id
       getDetail(id)

@@ -24,7 +24,7 @@
       <section class="movie">
         <Tab :titles="subject"  @handleClick="clickTab" ></Tab>
         <div class="showing" v-if="active === 0">
-          <MovieList :movies = 'showing'/>
+          <MovieList :movies = 'showing' @clickItem="toMovieDetail"/>
         </div>
         <div class="soon"  v-if="active === 1">
           <MovieList :movies = 'soon'/>
@@ -102,6 +102,9 @@ export default {
     },
     refreshScroll () {
       this.$refs.scroll.refresh()
+    },
+    toMovieDetail (id) {
+      this.$router.push({ path: `movies/${id}` })
     },
     pullUp () {
       this.$refs.recommend.getMore()

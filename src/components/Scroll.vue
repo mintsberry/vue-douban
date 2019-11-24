@@ -50,6 +50,9 @@ export default {
     },
     refresh () {
       this.scroll.refresh()
+    },
+    backTop () {
+      this.scroll.scrollTo(0, 0, 1000, 'easing')
     }
   }
 }

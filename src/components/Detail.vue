@@ -3,7 +3,7 @@
       <AppBar :title="title" :left="'arrow_left'" @left="back"/>
       <Scroll ref="scroll" :isPropagation="false"   class="movie-content" :data="integrate">
         <div class="wrapper">
-          <div class="desc">
+          <section class="desc">
             <div class="left">
               <img width="84" height="112" :src="data.pic.large" alt="">
             </div>
@@ -22,8 +22,8 @@
                 <span class="btn"><i class="icon icon-star"></i>看过</span>
               </div>
             </div>
-          </div>
-          <div class="rating" v-if="data.rating.count !== 0 && rating">
+          </section>
+          <section class="rating" v-if="data.rating.count !== 0 && rating">
             <div class="top">
               <span>豆瓣评分™ </span>
               <span><i class="icon icon-arrow_right"></i></span>
@@ -39,24 +39,24 @@
               <span>{{rating.done_count | simplifyNum}}人看过</span>
               <span>{{rating.wish_count | simplifyNum}}人想看</span>
             </div>
-          </div>
-          <div class="tags" ref="tags">
+          </section>
+          <section class="tags" ref="tags">
             <ul class="list">
               <span class="title">所属频道</span>
               <span class="tag" v-for="(tag, index) in data.tags" :key="index">
                 {{tag.name}}
               </span>
             </ul>
-          </div>
-          <div class="intro" @click="expandText">
+          </section>
+          <section class="intro" @click="expandText">
             <div class="title">简介<span class="icon icon-arrow_down" v-if="isOverFlow"></span></div>
             <span class="text" ref="intro">{{data.intro}}</span>
-          </div>
-          <div class="actor" v-if="staff">
+          </section>
+          <section class="actor" v-if="staff">
             <div class="title">演职表<span class="all">全部<i class="icon-arrow_right"></i></span></div>
             <ActorsList :data="staff.person"></ActorsList>
-          </div>
-          <div class="hot_interests" v-if="hotInterests">
+          </section>
+          <section class="hot_interests" v-if="hotInterests">
             <div class="title">短评<span class="all">全部{{hotInterests.total}}<i class="icon-arrow_right"></i></span></div>
             <ul class="comment">
               <li v-for="(item, index) in hotInterests.interests" :key="index" class="item">
@@ -64,7 +64,7 @@
                   <img :src="item.user.avatar" alt="" srcset="" width="24" height="24">
                   <div class="user_info">
                     <div class="name">{{item.user.name}}</div>
-                    <Star :size="24" :score="item.rating.value / 2"></Star> <span class="time">{{item.create_time}}</span>
+                    <Star :size="24" :score="item.rating.value / 2" v-if="item.rating"></Star> <span class="time">{{item.create_time}}</span>
                   </div>
                 </div>
                 <div class="middle">
@@ -78,11 +78,11 @@
                 </div>
               </li>
             </ul>
-          </div>
-          <div class="relate" v-if="related">
+          </section>
+          <section class="relate" v-if="related">
             <div class="title">喜欢这部电影的也喜欢<span class="all">全部{{hotInterests.total}}<i class="icon-arrow_right"></i></span></div>
-            <MovieList :movies="related.subjects"/>
-          </div>
+            <MovieList :movies="related.subjects" @clickItem="clickItem"/>
+          </section>
         </div>
       </Scroll>
   </div>
@@ -144,6 +144,12 @@ export default {
       isOverFlow: false
     }
   },
+  watch: {
+    data () {
+      // console.log('top')
+      this.$refs.scroll.backTop()
+    }
+  },
   computed: {
     info () {
       let str = this.data.card_subtitle.split('/')
@@ -177,6 +183,9 @@ export default {
         this.isOverFlow = true
         intro.style.display = '-webkit-box'
       }
+    },
+    clickItem (id) {
+      this.$emit('clickItem', id)
     }
   }
 }
