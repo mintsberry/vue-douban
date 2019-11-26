@@ -9,6 +9,7 @@
       :related="related"
       v-if="data"
       @clickItem="toMovieDetail"
+      @back="goMovie"
       >
       </Detail>
   </div>
@@ -40,6 +41,10 @@ export default {
   methods: {
     toMovieDetail (id) {
       this.$router.push({ path: `${id}` })
+    },
+    goMovie () {
+      this.$router.push({ path: '/amuse/movies' })
+      // this.$router.go(-1)
     },
     _initMovieDetail () {
       this._getDetail()

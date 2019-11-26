@@ -67,7 +67,6 @@ router.beforeEach((to, from, next) => {
   //   name: 'recommend'
   // }
   let componentName = to.name
-  console.log('TCL: componentName', componentName)
   if (baseNav.includes(componentName)) {
     let name = store.getters.lastUrl(componentName)
     next({ name })

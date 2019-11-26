@@ -27,7 +27,7 @@
           <MovieList :movies = 'showing' @clickItem="toMovieDetail"/>
         </div>
         <div class="soon"  v-if="active === 1">
-          <MovieList :movies = 'soon'/>
+          <MovieList :movies = 'soon' @clickItem="toMovieDetail"/>
         </div>
       </section>
       <section class="hot">

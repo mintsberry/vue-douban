@@ -17,14 +17,15 @@ export default {
 <style lang="scss" scoped>
 .amuse {
   position: fixed;
+  z-index: 10;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 56px;
   .content {
     position: absolute;
     top: 56px;
-    bottom: 56px;
+    bottom: 0;
     left: 0;
     right: 0;
     padding: 16px;

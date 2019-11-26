@@ -1,7 +1,7 @@
 <template>
   <div class="detail" :style="{ backgroundImage: `linear-gradient(#${data.color_scheme.primary_color_light}, #${data.color_scheme.primary_color_dark})`}">
-      <AppBar :title="title" :left="'arrow_left'" @left="back"/>
-      <Scroll ref="scroll" :isPropagation="false"   class="movie-content" :data="integrate">
+      <AppBar :title="title" :info="headerInfo" :left="'arrow_left'" :isShowInfo="isShowInfo" @left="back"/>
+      <Scroll ref="scroll" :isPropagation="false"   class="movie-content" :data="integrate"  :probeType="3" :listenScroll="true" @scroll="scrollContent">
         <div class="wrapper">
           <section class="desc">
             <div class="left">
@@ -141,13 +141,21 @@ export default {
   },
   data () {
     return {
-      isOverFlow: false
+      isOverFlow: false,
+      isShowInfo: false,
+      posY: 0
     }
   },
   watch: {
     data () {
-      // console.log('top')
       this.$refs.scroll.backTop()
+    },
+    posY (newVal) {
+      if (newVal < -44) {
+        this.isShowInfo = true
+      } else {
+        this.isShowInfo = false
+      }
     }
   },
   computed: {
@@ -157,6 +165,13 @@ export default {
     },
     integrate () {
       return [this.data, this.rating, this.staff, this.related, this.hotInterests]
+    },
+    headerInfo () {
+      return {
+        score: this.data.rating.value,
+        cover: this.data.pic.large,
+        title: this.data.title
+      }
     }
   },
   mounted () {
@@ -170,7 +185,10 @@ export default {
   },
   methods: {
     back () {
-      this.$router.go(-1)
+      this.$emit('back')
+    },
+    scrollContent (pos) {
+      this.posY = pos.y
     },
     expandText () {
       this.$refs.intro.style.webkitLineClamp = 'initial'
@@ -202,6 +220,9 @@ export default {
     left: 0;
     right: 0;
     padding: 16px;
+    .wrapper {
+      padding-top: 16px;
+    }
     .title {
       font-size: $font-size-medium-x;
       font-weight: bold;
