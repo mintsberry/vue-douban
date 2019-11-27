@@ -11,7 +11,7 @@
       <div class="desc">
         <div class="left">
           <div class="title">{{data.title}}<span class="year">({{data.year}})</span></div>
-          <div class="rating">
+          <div class="rating" v-if="data.rating.value !== 0">
             <Star :score='data.rating.value / 2' size='24' class="star"></Star>
             <span class="score">{{data.rating.value}}</span>
           </div>
@@ -21,10 +21,10 @@
           <div class="text">想看</div>
         </div>
       </div>
-      <div class="comment">
+      <div class="comment" v-if="data.comment">
         {{data.comment.comment}}<span class="user"> --{{data.comment.user.name}}</span>
       </div>
-      <div class="tags" v-if="data.tags">
+      <div class="tags" v-if="data.tags[0]">
         {{data.tags[0].name}}
       </div>
     </div>

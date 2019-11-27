@@ -132,11 +132,11 @@ export default {
   },
   filters: {
     simplifyNum (val) {
-      if (val > 1000) {
+      if (val > 10000) {
         let str = (val / 10000).toFixed(1)
         return `${str}万`
       }
-      return 'val'
+      return val
     }
   },
   data () {

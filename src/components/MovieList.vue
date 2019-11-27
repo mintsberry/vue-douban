@@ -4,6 +4,7 @@
       <div class="movie-box" ref="wrapper">
         <div class="img-box" v-for="(item, index) in movies" :key="index">
           <div class="img-wrapper" @click="clickItem(item.id)">
+            <Placeholder></Placeholder>
             <img :src="item.cover.url" alt="" v-if="item.cover">
             <img :src="item.pic.large" alt="" v-if="item.pic">
             <span class="like"></span>
@@ -16,7 +17,11 @@
 </template>
 <script>
 import BScroll from 'better-scroll'
+import Placeholder from './Placeholder.vue'
 export default {
+  components: {
+    Placeholder
+  },
   props: {
     movies: {
       type: Array,
