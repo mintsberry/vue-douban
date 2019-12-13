@@ -13,10 +13,13 @@
         <span class="text">筛选</span>
       </div>
     </div>
+    <div v-if="items.length === 0">
+      <SmallLoading></SmallLoading>
+    </div>
     <ul class="recommend">
       <li v-for="(item, index) in items" :key="index" class="item">
         <MovieCard v-if="item.card === 'chart' || item.card === 'doulist'" :data="item"></MovieCard>
-        <MovieRecommend v-if="item.card === 'subject'" :data="item"/>
+        <MovieRecommend v-if="item.card === 'subject'" :data="item" @clickItem="clickItem"/>
       </li>
     </ul>
     <Loading v-show="isMore" class="loading"></Loading>
@@ -28,6 +31,7 @@ import BScroll from 'better-scroll'
 import MovieCard from './MovieCard.vue'
 import MovieRecommend from './MovieRecommend.vue'
 import Loading from '../../../components/loading/Loading.vue'
+import SmallLoading from '../../../components/SmallLoading.vue'
 const requestParam = {
   tags: '',
   score_range: '0, 10',
@@ -39,7 +43,8 @@ export default {
   components: {
     MovieCard,
     Loading,
-    MovieRecommend
+    MovieRecommend,
+    SmallLoading
   },
   data () {
     return {
@@ -75,6 +80,8 @@ export default {
       deep: true,
       handler: function (newV, oldV) {
         this.param.start = 0
+        this.items = []
+        this.isMore = false
         getMoviesRecommend(this.param)
           .then((resp) => {
             this.items = resp.items
@@ -109,6 +116,9 @@ export default {
             this.loading = false
           })
       }
+    },
+    clickItem (id) {
+      this.$emit('clickItem', id)
     },
     init () {
       getMoviesRecommend(this.param)

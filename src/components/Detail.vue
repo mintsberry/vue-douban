@@ -1,7 +1,7 @@
 <template>
   <div class="detail" :style="{ backgroundImage: `linear-gradient(#${data.color_scheme.primary_color_light}, #${data.color_scheme.primary_color_dark})`}">
       <AppBar :title="title" :info="headerInfo" :left="'arrow_left'" :isShowInfo="isShowInfo" @left="back"/>
-      <Scroll ref="scroll" :isPropagation="false"   class="movie-content" :data="integrate"  :probeType="3" :listenScroll="true" @scroll="scrollContent">
+      <Scroll ref="scroll" :isPropagation="false"   class="movie-content" :data="integrate"  :probeType="3" :listenScroll="true" :bounce="false" @scroll="scrollContent">
         <div class="wrapper">
           <section class="desc">
             <div class="left">
@@ -58,7 +58,7 @@
           </section>
           <section class="hot_interests" v-if="hotInterests">
             <div class="title">短评<span class="all">全部{{hotInterests.total}}<i class="icon-arrow_right"></i></span></div>
-            <ul class="comment">
+            <ul class="content">
               <li v-for="(item, index) in hotInterests.interests" :key="index" class="item">
                 <div class="top">
                   <img :src="item.user.avatar" alt="" srcset="" width="24" height="24">
@@ -83,6 +83,9 @@
             <div class="title">喜欢这部电影的也喜欢<span class="all">全部{{hotInterests.total}}<i class="icon-arrow_right"></i></span></div>
             <MovieList :movies="related.subjects" @clickItem="clickItem"/>
           </section>
+          <!-- <section class="comment" ref="comment">
+
+          </section> -->
         </div>
       </Scroll>
   </div>
@@ -175,6 +178,7 @@ export default {
     }
   },
   mounted () {
+    // this.$refs.comment.style.height = '768px'
     setTimeout(() => {
       this.scroll = new BScroll(this.$refs.tags, {
         scrollX: true,
@@ -222,6 +226,9 @@ export default {
     padding: 16px;
     .wrapper {
       padding-top: 16px;
+    }
+    .wrapper:last-child {
+      // padding-bottom: 16px;
     }
     .title {
       font-size: $font-size-medium-x;
@@ -427,7 +434,7 @@ export default {
       padding: 16px;
       background-color: rgba(0, 0, 0, .2);
       border-radius: 16px;
-      .comment {
+      .content {
         margin-top: 16px;
         color: white;
         font-size: $font-size-medium;
@@ -470,9 +477,6 @@ export default {
         }
       }
     }
-    .wrapper:last-child {
-      padding-bottom: 16px;
-    }
     .relate {
       margin-top: 32px;
       .movie-list {
@@ -481,6 +485,10 @@ export default {
           color: white;
         }
       }
+    }
+    .comment {
+      width: 100%;
+      height: 100%;
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-recommend">
+  <div class="movie-recommend" @click="$emit('clickItem', data.id)">
     <div class="cover">
       <img :src="data.pic.large" class="pic" height="112" width="84">
       <div class="swiper-wrapper">

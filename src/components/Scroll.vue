@@ -28,6 +28,10 @@ export default {
     listenScroll: {
       type: Boolean,
       default: false
+    },
+    bounce: {
+      type: Boolean,
+      default: true
     }
   },
   mounted () {
@@ -47,7 +51,8 @@ export default {
       this.scroll = new BScroll(this.$refs.scroll, {
         click: true,
         stopPropagation: !this.isPropagation,
-        probeType: this.probeType
+        probeType: this.probeType,
+        bounce: this.bounce
       })
       if (this.pullup) {
         this.scroll.on('scrollEnd', () => {

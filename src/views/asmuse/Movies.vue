@@ -32,7 +32,7 @@
       </section>
       <section class="hot">
         <h2 class="title">豆瓣热门</h2>
-        <HotList :data = 'hot'/>
+        <HotList :data = 'hot' @clickItem="toMovieDetail"/>
       </section>
       <section class="rank">
         <h2 class="title">豆瓣榜单</h2>
@@ -44,7 +44,11 @@
       </section>
       <section class="recommend">
         <h2 class="title">为你推荐</h2>
-        <MovieRecommendList @refresh="refreshScroll" ref="recommend"/>
+        <MovieRecommendList
+          @refresh="refreshScroll"
+          @clickItem="toMovieDetail"
+          ref="recommend"
+        />
       </section>
     </div>
     <router-view></router-view>

@@ -24,7 +24,7 @@ export default {
 @import '../../../common/scss/variable.scss';
 .movie-card {
   border-radius: 8px;
-  box-shadow: 0 0 2px 2px #eee;
+  box-shadow: 0px 0px 4px  #eee;
   .cover {
     position: relative;
     padding-top: 60%;
