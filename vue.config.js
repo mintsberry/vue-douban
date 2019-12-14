@@ -70,6 +70,10 @@ module.exports = {
         const url = baseUrl + '/api/v2/tv/suggestion'
         request(url, req, res)
       })
+      app.get(/^\/api\/(\w+)\/rank_list/, (req, res) => {
+        let url = `${baseUrl}/api/v2/${RegExp.$1}/rank_list`
+        request(url, req, res)
+      })
     }
   }
 }

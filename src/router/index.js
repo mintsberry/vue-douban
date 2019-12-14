@@ -51,6 +51,11 @@ const routes = [
         path: '/amuse/book',
         name: 'book',
         component: () => import('../views/asmuse/Book.vue')
+      },
+      {
+        path: '/amuse/rank/:category',
+        name: 'rank',
+        component: () => import('../views/asmuse/Rank/DouBanRank.vue')
       }
     ]
   }

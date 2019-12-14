@@ -2,7 +2,8 @@
   <div class="hot-list">
     <div class="img-box" v-for="(item, index) in data" :key="index" @click="$emit('clickItem', item.id)">
       <div class="img-wrapper">
-        <img :src="item.cover.url" alt="">
+        <img :src="item.cover.url" alt="" v-if="item.cover">
+        <img :src="item.pic.normal" alt="">
       </div>
       <div class="introduce">
         <div class="title">{{item.title}}</div>

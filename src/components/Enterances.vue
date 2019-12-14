@@ -1,6 +1,6 @@
 <template>
     <ul class="enterances">
-      <li class="item" v-for="(item, index) in data" :key="index">
+      <li class="item" v-for="(item, index) in data" :key="index" @click="$emit('clickItem', item)">
         <img :src="item.icon" alt="" width="36" height="36">
         <p class="text">{{item.title}}</p>
       </li>

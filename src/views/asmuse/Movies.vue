@@ -2,7 +2,7 @@
   <Scroll class="movies" :data="data" ref="scroll" :pullup="true" @scrollToEnd="pullUp">
     <div>
       <section class="top">
-        <Enterances :data='enterances'></Enterances>
+        <Enterances :data='enterances' @clickItem='toEnterances'></Enterances>
       </section>
       <section class="banner">
         <div class="text">
@@ -110,8 +110,17 @@ export default {
     toMovieDetail (id) {
       this.$router.push({ path: `movies/${id}` })
     },
+    toMovieRank () {
+      // this.$router.push({ name: 'rank', params: { category: 'movies' } })
+      this.$router.push({ path: `/amuse/rank/moveis` })
+    },
     pullUp () {
       this.$refs.recommend.getMore()
+    },
+    toEnterances (item) {
+      if (item.title === '豆瓣榜单') {
+        this.toMovieRank()
+      }
     },
     _getMovies () {
       getMovies()
