@@ -3,7 +3,7 @@
     <div class="img-box" v-for="(item, index) in data" :key="index" @click="$emit('clickItem', item.id)">
       <div class="img-wrapper">
         <img :src="item.cover.url" alt="" v-if="item.cover">
-        <img :src="item.pic.normal" alt="">
+        <img :src="item.pic.normal" alt="" v-else>
       </div>
       <div class="introduce">
         <div class="title">{{item.title}}</div>

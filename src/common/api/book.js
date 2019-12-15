@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { commParams } from './params'
 export function getBook () {
-  const url = '/api/book'
+  const url = '/api/v2/book/modules'
   let params = Object.assign({}, commParams)
   return axios.get(url, {
     params
@@ -10,7 +10,7 @@ export function getBook () {
   })
 }
 export function getBookRecommend (start = 0, count = 10) {
-  const url = '/api/book/recommend'
+  const url = '/api/v2/book/suggestion'
   let params = Object.assign({}, commParams, {
     start,
     count

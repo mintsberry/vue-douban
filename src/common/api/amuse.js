@@ -3,7 +3,7 @@ import {
   commParams
 } from './params'
 export function getMovies () {
-  const url = '/api/movie'
+  const url = '/api/v2/movie/modules'
   let params = Object.assign({}, commParams)
   return axios.get(url, {
     params
@@ -12,7 +12,7 @@ export function getMovies () {
   })
 }
 export function getEventVideos (count) {
-  const url = '/api/event_videos'
+  const url = '/api/v2/skynet/playlist/recommend/event_videos'
   let params = Object.assign({}, commParams, {
     count
   })
@@ -23,7 +23,7 @@ export function getEventVideos (count) {
   })
 }
 export function getPlayList (count = 4) {
-  const url = '/api/play_list'
+  const url = '/api/v2/skynet/playlists'
   let params = Object.assign({}, commParams, {
     count
   })
@@ -34,7 +34,7 @@ export function getPlayList (count = 4) {
   })
 }
 export function getDetail (id) {
-  const url = `/api/movie/${id}`
+  const url = `/api/v2/movie/${id}`
   let params = Object.assign({}, commParams, {
     id
   })
@@ -45,7 +45,7 @@ export function getDetail (id) {
   })
 }
 export function getRating (id) {
-  const url = `/api/movie/${id}/rating`
+  const url = `/api/v2/movie/${id}/rating`
   let params = Object.assign({}, commParams, {
     id
   })
@@ -56,7 +56,7 @@ export function getRating (id) {
   })
 }
 export function getStaff (id) {
-  const url = `/api/movie/${id}/celebrities`
+  const url = `/api/v2/movie/${id}/celebrities`
   let params = Object.assign({}, commParams, {
     id
   })
@@ -67,21 +67,21 @@ export function getStaff (id) {
   })
 }
 export function gethotInterests (id) {
-  const url = `/api/movie/${id}/hot_interests?`
+  const url = `/api/v2/movie/${id}/hot_interests?`
   let params = Object.assign({}, commParams, {
     id
   })
   return getMovieRelatedInfo(url, params)
 }
 export function getRelated (id) {
-  const url = `/api/movie/${id}/related_items?`
+  const url = `/api/v2/movie/${id}/related_items?`
   let params = Object.assign({}, commParams, {
     id
   })
   return getMovieRelatedInfo(url, params)
 }
 export function getMoviesRecommend (requestParams) {
-  const url = '/api/movie/recommend'
+  const url = '/api/v2/movie/recommend'
   let params = Object.assign({}, commParams, requestParams, {
     udid: '998f4157313c3c7c4ecab0acb91ab80989d34be9',
     rom: 'android',

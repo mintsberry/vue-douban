@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { commParams } from './params'
 export function getTv () {
-  const url = '/api/tv'
+  const url = '/api/v2/tv/modules'
   let params = Object.assign({}, commParams)
   return axios.get(url, {
     params
@@ -11,7 +11,7 @@ export function getTv () {
 }
 
 export function getTvRecommend (start = 0, count = 10) {
-  const url = '/api/tv/recommend'
+  const url = '/api/v2/tv/suggestion'
   let params = Object.assign({}, commParams, {
     start,
     count
